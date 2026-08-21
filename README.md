@@ -102,7 +102,7 @@ The final architecture separates the application into two logical tiers.
 
 ## Architecture Diagram
 
-![Azure Two-Tier Architecture](screenshots/architecture.png)
+<img width="1536" height="1024" alt="ChatGPT Image Aug 21, 2026, 04_25_01 AM" src="https://github.com/user-attachments/assets/90d22e3d-8f09-49e7-8e77-c9da8ae7f9cb" />
 
 ---
 
@@ -156,12 +156,6 @@ The backend VM is deployed inside this subnet.
 
 ---
 
-## 📸 VNet and Subnets
-
-![VNet and Subnets](screenshots/02-vnet-subnets.png)
-
----
-
 # 🖥️ Frontend Tier
 
 The frontend VM is the public-facing component of the application.
@@ -187,7 +181,8 @@ The frontend is intentionally the only application tier directly accessible from
 
 ## 📸 Frontend VM
 
-![Frontend VM](screenshots/03-frontend-vm.png)
+<img width="1919" height="959" alt="Screenshot 2026-08-19 084927" src="https://github.com/user-attachments/assets/55bd5d11-745c-473f-a7b7-251dce91865f" />
+
 
 ---
 
@@ -218,7 +213,8 @@ This means the backend cannot be directly accessed from the public internet.
 
 ## 📸 Backend VM
 
-![Backend VM](screenshots/04-backend-vm-private.png)
+<img width="1919" height="959" alt="Screenshot 2026-08-19 085005" src="https://github.com/user-attachments/assets/70832dfb-9a87-45ab-88f6-3818b7f7cd0c" />
+
 
 ---
 
@@ -273,7 +269,7 @@ The frontend NSG therefore allows the required public application traffic and ad
 
 ## 📸 Frontend NSG
 
-![Frontend NSG Rules](screenshots/05-frontend-nsg.png)
+<img width="1919" height="960" alt="Screenshot 2026-08-19 084720" src="https://github.com/user-attachments/assets/383793ae-0d3a-4d53-923a-52d66012ef1a" />
 
 ---
 
@@ -319,7 +315,7 @@ This prevents users from bypassing the frontend and directly accessing the backe
 
 ## 📸 Backend NSG
 
-![Backend NSG Rules](screenshots/06-backend-nsg.png)
+<img width="1919" height="969" alt="Screenshot 2026-08-19 084819" src="https://github.com/user-attachments/assets/aa5c93ae-d97c-47ea-a197-364a106d554e" />
 
 ---
 
@@ -355,17 +351,9 @@ The NAT Gateway provides **outbound connectivity** without assigning a public IP
 
 ---
 
-## 📸 NAT Gateway
-
-![NAT Gateway](screenshots/07-nat-gateway.png)
-
----
-
 ## 📸 NAT Gateway Association
 
 The NAT Gateway was associated with `backend-subnet`.
-
-![Backend Subnet NAT Gateway Association](screenshots/08-backend-subnet-nat.png)
 
 ---
 
@@ -490,13 +478,6 @@ The backend successfully returned:
   "status": "success"
 }
 ```
-
----
-
-## 📸 Frontend-to-Backend Communication
-
-![Frontend to Backend Communication](screenshots/11-frontend-backend-communication.png)
-
 ---
 
 # 🚫 Backend Internet Isolation
@@ -538,12 +519,6 @@ Backend
 ```
 
 This architecture reduces the public attack surface by keeping the backend private.
-
----
-
-## 📸 Backend Has No Public IP
-
-![Backend Without Public IP](screenshots/12-backend-no-public-ip.png)
 
 ---
 
@@ -669,13 +644,6 @@ Expected status:
 ```text
 Active: active (running)
 ```
-
----
-
-## 📸 Backend systemd Service
-
-![Backend systemd Service](screenshots/09-backend-systemd.png)
-
 ---
 
 # 🖥️ Frontend systemd Service
@@ -711,12 +679,6 @@ Expected status:
 ```text
 Active: active (running)
 ```
-
----
-
-## 📸 Frontend systemd Service
-
-![Frontend systemd Service](screenshots/10-frontend-systemd.png)
 
 ---
 
@@ -834,12 +796,6 @@ This confirmed that the backend application automatically started after the VM r
 
 ---
 
-## 📸 Backend After Reboot
-
-![Backend After Reboot](screenshots/13-backend-after-reboot.png)
-
----
-
 # 🔁 Frontend Reboot Test
 
 The frontend VM was also rebooted.
@@ -859,12 +815,6 @@ Active: active (running)
 The application was then accessed through the frontend public IP.
 
 The frontend successfully communicated with the backend after the reboot.
-
----
-
-## 📸 Frontend After Reboot
-
-![Frontend After Reboot](screenshots/14-frontend-after-reboot.png)
 
 ---
 
@@ -917,7 +867,7 @@ Successful Response
 
 ## 📸 Final Application
 
-![Final Azure Two-Tier Application](screenshots/15-final-application.png)
+<img width="1919" height="1079" alt="Screenshot 2026-08-19 085739" src="https://github.com/user-attachments/assets/0f815d5e-a1e9-4e8a-9d34-0264cceaae5b" />
 
 ---
 
@@ -1269,215 +1219,6 @@ The final traffic model can be summarized as:
 
 ---
 
-# 📁 Project Structure
-
-```text
-project-2/
-│
-├── README.md
-│
-└── screenshots/
-    │
-    ├── 01-resource-group.png
-    ├── 02-vnet-subnets.png
-    ├── 03-frontend-vm.png
-    ├── 04-backend-vm-private.png
-    ├── 05-frontend-nsg.png
-    ├── 06-backend-nsg.png
-    ├── 07-nat-gateway.png
-    ├── 08-backend-subnet-nat.png
-    ├── 09-backend-systemd.png
-    ├── 10-frontend-systemd.png
-    ├── 11-frontend-backend-communication.png
-    ├── 12-backend-no-public-ip.png
-    ├── 13-backend-after-reboot.png
-    ├── 14-frontend-after-reboot.png
-    ├── 15-final-application.png
-    │
-    └── architecture.png
-```
-
----
-
-# 🚀 Future Improvements
-
-The architecture can be further improved by introducing additional Azure services and production practices.
-
-## 1. HTTPS
-
-The application currently uses HTTP.
-
-A future version could implement HTTPS using TLS certificates.
-
-```text
-Internet
-   │
-   │ HTTPS
-   ▼
-Frontend
-```
-
----
-
-## 2. Azure Application Gateway
-
-Azure Application Gateway could be placed in front of the frontend tier to provide:
-
-- Layer 7 routing
-- TLS termination
-- Health probes
-- Web Application Firewall capabilities
-- Improved traffic management
-
----
-
-## 3. Load Balancing
-
-Multiple frontend VMs could be deployed behind a load balancer.
-
-```text
-                    INTERNET
-                       │
-                       ▼
-                Load Balancer
-                  /        \
-                 /          \
-                ▼            ▼
-        Frontend VM 1   Frontend VM 2
-                │            │
-                └─────┬──────┘
-                      │
-                      ▼
-                 Backend Tier
-```
-
----
-
-## 4. Azure Monitor
-
-Azure Monitor and Log Analytics could be introduced to monitor:
-
-- VM performance
-- CPU usage
-- Memory usage
-- Network traffic
-- Application logs
-- Service health
-
----
-
-## 5. Azure Key Vault
-
-Sensitive values and secrets could be stored in Azure Key Vault instead of being stored directly in application configuration.
-
----
-
-## 6. Infrastructure as Code
-
-The infrastructure could be recreated using:
-
-- Terraform
-- Azure Bicep
-- ARM templates
-
-This would make the project reproducible and easier to maintain.
-
----
-
-## 7. High Availability
-
-The architecture could be expanded across multiple availability zones with multiple frontend and backend instances.
-
----
-
-# 📸 Screenshot Gallery
-
-## Azure Infrastructure
-
-### Resource Group
-
-![Resource Group](screenshots/01-resource-group.png)
-
-### Virtual Network and Subnets
-
-![VNet and Subnets](screenshots/02-vnet-subnets.png)
-
-### Frontend VM
-
-![Frontend VM](screenshots/03-frontend-vm.png)
-
-### Backend VM
-
-![Backend VM](screenshots/04-backend-vm-private.png)
-
----
-
-## Security
-
-### Frontend NSG
-
-![Frontend NSG](screenshots/05-frontend-nsg.png)
-
-### Backend NSG
-
-![Backend NSG](screenshots/06-backend-nsg.png)
-
----
-
-## NAT Gateway
-
-### NAT Gateway
-
-![NAT Gateway](screenshots/07-nat-gateway.png)
-
-### Backend Subnet NAT Association
-
-![Backend Subnet NAT](screenshots/08-backend-subnet-nat.png)
-
----
-
-## Application Services
-
-### Backend systemd
-
-![Backend systemd](screenshots/09-backend-systemd.png)
-
-### Frontend systemd
-
-![Frontend systemd](screenshots/10-frontend-systemd.png)
-
----
-
-## Connectivity
-
-### Frontend to Backend
-
-![Frontend to Backend](screenshots/11-frontend-backend-communication.png)
-
-### Backend Without Public IP
-
-![Backend Private](screenshots/12-backend-no-public-ip.png)
-
----
-
-## Persistence Testing
-
-### Backend After Reboot
-
-![Backend After Reboot](screenshots/13-backend-after-reboot.png)
-
-### Frontend After Reboot
-
-![Frontend After Reboot](screenshots/14-frontend-after-reboot.png)
-
----
-
-## Final Application
-
-![Final Application](screenshots/15-final-application.png)
-
----
-
 # ✅ Project Status
 
 ## Completed
@@ -1548,18 +1289,6 @@ Application Testing
 # 👨‍💻 Author
 
 **Martins**
-
-Cloud Engineering Learner
-
-This project is part of my hands-on journey into:
-
-- Cloud Engineering
-- Microsoft Azure
-- Azure Networking
-- Linux Administration
-- Python Application Deployment
-- Infrastructure and Network Security
-
 ---
 
 ## ⭐ If you found this project useful
